@@ -22,20 +22,33 @@ namespace BSTdev
                 Console.WriteLine("Tree is null");
                 return;
             }
-            if (CurrentNode == null)
-            {
-                CurrentNode = new Node(value, name);
-                return;
-            }
 
 
+
+            //checks if the node needs to go to the right of the current node, then checks if the node can be placed the current nodes child
             if (CurrentNode.value < value) 
             {
-                AddValueToTree(currentTree, CurrentNode.rightNode, value, name);
+                if (CurrentNode.rightNode == null)
+                {
+                    CurrentNode.rightNode = new Node(value, name);
+                }
+                else
+                {
+                    AddValueToTree(currentTree, CurrentNode.rightNode, value, name);
+                }
             }
+
+            //same same but different
             if (CurrentNode.value > value)
             {
-                AddValueToTree(currentTree, CurrentNode.leftNode, value, name);
+                if (CurrentNode.leftNode == null)
+                {
+                    CurrentNode.leftNode = new Node(value, name);
+                }
+                else
+                {
+                    AddValueToTree(currentTree, CurrentNode.leftNode, value, name);
+                }
             }
         }
     }
@@ -55,6 +68,8 @@ namespace BSTdev
         {
             this.value = value;
             this.Name = name;
+            leftNode = null;
+            rightNode = null;
         }
     }
 }
