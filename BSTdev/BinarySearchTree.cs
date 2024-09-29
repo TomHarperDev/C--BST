@@ -15,16 +15,8 @@ namespace BSTdev
             this.root = new Node(10, name);
         }
 
-        public void AddValueToTree(BinarySearchTree currentTree, Node CurrentNode, int value, string name)
+        public void AddValueToTree( Node CurrentNode, int value, string name)
         {
-            if (currentTree.root == null) 
-            {
-                Console.WriteLine("Tree is null");
-                return;
-            }
-
-
-
             //checks if the node needs to go to the right of the current node, then checks if the node can be placed the current nodes child
             if (CurrentNode.value < value) 
             {
@@ -34,7 +26,7 @@ namespace BSTdev
                 }
                 else
                 {
-                    AddValueToTree(currentTree, CurrentNode.rightNode, value, name);
+                    AddValueToTree(CurrentNode.rightNode, value, name);
                 }
             }
 
@@ -47,9 +39,49 @@ namespace BSTdev
                 }
                 else
                 {
-                    AddValueToTree(currentTree, CurrentNode.leftNode, value, name);
+                    AddValueToTree(CurrentNode.leftNode, value, name);
                 }
             }
+        }
+
+        public void EditTreeNode(Node CurrentNode, int value, string name)
+        {
+            if (CurrentNode.Name == name)
+            {
+                Console.WriteLine($"The node you are searching for has been found {CurrentNode.Name}");
+                Console.WriteLine("Please enter its new name:");
+
+                string newName = Console.ReadLine();
+
+                CurrentNode.Name = newName;
+                return;
+            }
+
+            if (CurrentNode.value < value)
+            {
+                if (CurrentNode.rightNode == null)
+                {
+                    CurrentNode.rightNode = new Node(value, name);
+                }
+                else
+                {
+                    EditTreeNode(CurrentNode.rightNode, value, name);
+                }
+            }
+
+            //same same but different
+            if (CurrentNode.value > value)
+            {
+                if (CurrentNode.leftNode == null)
+                {
+                    CurrentNode.leftNode = new Node(value, name);
+                }
+                else
+                {
+                    EditTreeNode(CurrentNode.leftNode, value, name);
+                }
+            }
+
         }
     }
 
